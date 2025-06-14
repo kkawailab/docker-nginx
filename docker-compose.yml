@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # Webサーバー
+  web:
+    build: .
+    container_name: nginx-web
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+    networks:
+      - webnet
+    restart: unless-stopped
+
+  # データベース
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: myapp
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppassword
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - webnet
+    restart: unless-stopped
+
+  # PHPアプリケーション
+  app:
+    image: php:8.1-fpm
+    container_name: php-app
+    volumes:
+      - ./app:/var/www/html
+    networks:
+      - webnet
+    depends_on:
+      - db
+
+networks:
+  webnet:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local

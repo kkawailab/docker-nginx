@@ -1,0 +1,20 @@
+{
+  "name": "docker-nginx-sample",
+  "version": "1.0.0",
+  "description": "Docker Nginx サンプルアプリケーション",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Building application...' && mkdir -p dist && cp index.html dist/",
+    "start": "echo 'Starting application...'",
+    "test": "echo 'Running tests...'"
+  },
+  "keywords": [
+    "docker",
+    "nginx",
+    "sample"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
